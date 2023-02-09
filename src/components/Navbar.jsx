@@ -22,44 +22,67 @@ const NavButton = ({ customFunc, title, icon, color, dotColor }) => (
 			<span
 				style={{ background: dotColor }}
 				className='absolute inline-flex rounded-full h-2 w-2 right-2 top-2'
-			>
-				{icon}
-			</span>
+			/>
+			{icon}
 		</button>
 	</TooltipComponent>
 );
 
 const Navbar = () => {
-	const { activeMenu, setActiveMenu } = useStateContext();
-	const handleClick = () => {};
+	const {
+		activeMenu,
+		setActiveMenu,
+		isClicked,
+		setIsClicked,
+		handleClick,
+		screenSize,
+		setScreenSize,
+	} = useStateContext();
+
+	useEffect(() => {
+		const handleResize = () => setScreenSize(window.innerWidth);
+
+		window.addEventListener('resize', handleResize);
+		handleResize();
+
+		return () => window.removeEventListener('resize', handleResize);
+	}, [setScreenSize]);
+
+	useEffect(() => {
+		if (screenSize > 768) {
+			setActiveMenu(false);
+		} else {
+			setActiveMenu(true);
+		}
+	}, [screenSize, setActiveMenu]);
 
 	return (
 		<div className='flex justify-between p-2 md:mx-6 relative'>
 			<NavButton
 				title='Menu'
 				customFunc={() => setActiveMenu(prevActiveMenu => !prevActiveMenu)}
-				color='blue'
+				color='gray'
 				icon={<AiOutlineMenu />}
 			/>
 			<div className='flex'>
 				<NavButton
 					title='Cart'
 					customFunc={() => handleClick('cart')}
-					color='blue'
+					color='gray'
 					icon={<FiShoppingCart />}
 				/>
 				<NavButton
 					title='Chat'
 					dotColor='#03C9D7'
 					customFunc={() => handleClick('chat')}
-					color='blue'
+					color='gray'
 					icon={<BsChatLeft />}
 				/>
 				<NavButton
 					title='Notifications'
 					dotColor='#03C9D7'
 					customFunc={() => handleClick('notification')}
-					color='blue'
+					color='gray'
 					icon={<RiNotification3Line />}
 				/>
 				<TooltipComponent content='Profile' position='BottomCenter'>
@@ -77,10 +100,14 @@ const Navbar = () => {
 							<span className='text-gray-400 font-bold ml-1 text-14'>
 								Micheal
 							</span>
-            </p>
-            <MdKeyboardArrowDown className='text-gray-400 text-14' />
+						</p>
+						<MdKeyboardArrowDown className='text-gray-400 text-14' />
 					</div>
 				</TooltipComponent>
+				{isClicked.cart && <Cart />}
+				{isClicked.chat && <Chat />}
+				{isClicked.notification && <Notification />}
+				{isClicked.userProfile && <UserProfile />}
 			</div>
 		</div>
 	);
