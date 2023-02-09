@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useStateContext } from './context/ContextProvider';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { FiSettings } from 'react-icons/fi';
@@ -24,11 +25,10 @@ import {
 	Line,
 } from './pages';
 
-
 import './App.css';
 
 const App = () => {
-	const activeMenu = true;
+	const { activeMenu, setActiveMenu } = useStateContext();
 
 	return (
 		<div>
