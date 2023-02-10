@@ -12,15 +12,15 @@ const Kanban = () => {
 	return (
 		<div className='m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl'>
 			<Header title='Kanban' category='Page' />
-      <KanbanComponent
-        id='kanban'
-        dataSource={kanbanData}
-        cardSettings={{
-          contentField: 'Summary',
-          headerField: 'Id',
-        }}
-        keyField='Status'
-      >
+			<KanbanComponent
+				id='kanban'
+				dataSource={kanbanData}
+				cardSettings={{
+					contentField: 'Summary',
+					headerField: 'Id',
+				}}
+				keyField='Status'
+			>
 				<ColumnsDirective>
 					{kanbanGrid.map((item, index) => (
 						<ColumnDirective key={index} {...item} />

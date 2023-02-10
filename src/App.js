@@ -28,7 +28,7 @@ import {
 import './App.css';
 
 const App = () => {
-	const { activeMenu, setActiveMenu } = useStateContext();
+	const { activeMenu, themeSettings, setThemeSettings } = useStateContext();
 
 	return (
 		<div>
@@ -43,6 +43,7 @@ const App = () => {
 									backgroundColor: 'rgba(0, 0, 0, 0.5)',
 									borderRadius: '50%',
 								}}
+								onClick={() => setThemeSettings(true)}
 							>
 								<FiSettings />
 							</button>
@@ -65,6 +66,8 @@ const App = () => {
 						</div>
 
 						<div>
+							{themeSettings && <ThemeSettings />}
+
 							<Routes>
 								{/* Dashboard */}
 								<Route path='/' element={<Ecommerce />} />
@@ -76,8 +79,8 @@ const App = () => {
 								<Route path='/customers' element={<Customers />} />
 
 								{/* Apps */}
-								<Route path='/calendar' element={<Calendar />} />
 								<Route path='/kanban' element={<Kanban />} />
+								<Route path='/calendar' element={<Calendar />} />
 								<Route path='/editor' element={<Editor />} />
 								<Route path='/color-picker' element={<ColorPicker />} />
 
