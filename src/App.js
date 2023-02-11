@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useStateContext } from './context/ContextProvider';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -106,6 +106,7 @@ const App = () => {
 					</div>
 				</div>
 			</BrowserRouter>
+			<Footer />
 		</div>
 	);
 };
